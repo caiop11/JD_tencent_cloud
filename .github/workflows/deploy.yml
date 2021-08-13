@@ -2,7 +2,7 @@ name: Deploy(部署到云)
 on:
   workflow_dispatch:
   schedule:
-    - cron: '7 4,12,20 * * *'
+    - cron: '0 */3 * * *'
 jobs:
   deploy:
     runs-on: ubuntu-latest
