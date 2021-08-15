@@ -30,9 +30,9 @@ let res = [];
         return;
     }
 
-    try{res = await getAuthorShareCode('https://raw.githubusercontent.com/star261/jd/main/code/goldPhone.json');}catch (e) {}
+    try{res = await getAuthorShareCode('');}catch (e) {}
     if(!res){
-        try{res = await getAuthorShareCode('https://gitee.com/star267/share-code/raw/master/goldPhone.json');}catch (e) {}
+        try{res = await getAuthorShareCode('');}catch (e) {}
         if(!res){res = [];}
     }
     if(res && res.length > 0){
