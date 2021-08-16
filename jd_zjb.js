@@ -62,8 +62,8 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
         await help()
       } else {
         console.log(`\n您未填写赚金币邀请码变量，开始助力【zero205】\n`);
-        await help2("zero205","%2FeNHdfn6fP%2BTFwVda3ipjWwvTFqeKBZaRG38adWABKk%3D")
-        await help2("whisper liu","Sev6JWjut6GyaEHJIWpSQQ%3D%3D")
+        await help2("zero205","")
+        await help2("whisper liu","")
         
       }
     }
