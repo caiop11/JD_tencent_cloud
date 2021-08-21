@@ -52,7 +52,7 @@ const JD_API_HOST = 'https://api.m.jd.com/', actCode = 'visa-card-001';
   $.canhelp = true;
   if ($.isNode()) {
     if (process.env.HELP_YQYL && process.env.HELP_YQYL === 'false')
-    $.canhelp = false
+      $.canhelp = false
   }
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
@@ -686,10 +686,13 @@ function taskGetUrl(function_id, body) {
 function invite2() {
   let t = +new Date()
   let inviterId = [
+
+    "",
     "",
     "",
     ""
-  ][Math.floor((Math.random() * 3))]
+  ][Math.floor((Math.random() * 4))]
+
   let headers = {
     'Host': 'api.m.jd.com',
     'accept': 'application/json, text/plain, */*',
