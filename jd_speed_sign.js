@@ -1,4 +1,5 @@
 /*
+0 7 * * * jd_speed_sign.js
 京东极速版签到+赚现金任务
 每日9毛左右，满3，10，50可兑换无门槛红包
 ⚠️⚠️⚠️一个号需要运行40分钟左右
@@ -719,11 +720,16 @@ function invite2() {
 function invite() {
   let t = +new Date()
   let inviterId = [
+
+    "",
+    "",
+    "",
     "",
     "",
     "",
     ""
-  ][Math.floor((Math.random() * 4))]
+  ][Math.floor((Math.random() * 7))]
+
   var headers = {
     'Host': 'api.m.jd.com',
     'accept': 'application/json, text/plain, */*',
