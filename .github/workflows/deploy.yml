@@ -6,6 +6,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     if: github.event.repository.owner.id == github.event.sender.id
     env:
       PAT: ${{ secrets.PAT }} #此处PAT需要申请，教程详见：https://www.jianshu.com/p/bb82b3ad1d11,需要repo和workflow权限
@@ -35,6 +36,7 @@ jobs:
         working-directory: ./JD_tencent_cloud
         env:
           SECRETS: ${{ toJson(secrets) }}
+          JRBODY_SCF: ${{ secrets.JRBODY_SCF }}
           TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
           TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
           TENCENT_REGION: ${{ secrets.SCF_REGION }}
@@ -49,12 +51,21 @@ jobs:
           parameter=$(tr "\n" "|" <<< $VARIS)
           parameter=${parameter::-1}
           echo "      TZ: Asia/Shanghai" >> serverless.yml
-          (grep -E "^$parameter:" <<< $SECS)| while read line;do    echo "      ${line}" >> serverless.yml;done
-          if [ $TENCENT_REGION ]; then sed -i -E 's/region:[^\n]+/region: '"$TENCENT_REGION"'/' serverless.yml; fi;
-          if [ $TENCENT_FUNCTION_NAME ]; then sed -i -E 's/^  name:[^\n]+/  name: '"$TENCENT_FUNCTION_NAME"'/' serverless.yml; fi;
-          if [ $TENCENT_FUNCTION_NAME ]; then sed -i -E 's/^name:[^\n]+/name: '"$TENCENT_FUNCTION_NAME"'/' serverless.yml; fi;
-          if [ $TENCENTSCF_MEMORYSIZE ]; then sed -i -E 's/memorySize:[^\n]+/memorySize: '"$TENCENTSCF_MEMORYSIZE"'/' serverless.yml; fi;
-          if [ $TENCENT_TIMEOUT ]; then sed -i -E 's/timeout:[^\n]+/timeout: '"$TENCENT_TIMEOUT"'/' serverless.yml; fi;
+          if [[ ! -z $JRBODY_SCF ]]; then echo $JRBODY_SCF > JRBODY.txt; fi;
+          (grep -iE "^($parameter):" <<< $SECS)|
+            while read line;do
+              (grep -iE "^(.*)" <<< $VARIS)|while read real_name;do
+                if grep -iq $real_name <<< ${line};then
+                  echo "      ${line}" | sed "s/$real_name/$real_name/gi" >> serverless.yml;
+                  exit
+                fi
+            done 
+          done
+          if [[ ! -z $TENCENT_REGION ]]; then sed -i -E 's/region:[^\n]+/region: '"$TENCENT_REGION"'/' serverless.yml; fi;
+          if [[ ! -z $TENCENT_FUNCTION_NAME ]]; then sed -i -E 's/^  name:[^\n]+/  name: '"$TENCENT_FUNCTION_NAME"'/' serverless.yml; fi;
+          if [[ ! -z $TENCENT_FUNCTION_NAME ]]; then sed -i -E 's/^name:[^\n]+/name: '"$TENCENT_FUNCTION_NAME"'/' serverless.yml; fi;
+          if [[ ! -z $TENCENTSCF_MEMORYSIZE ]]; then sed -i -E 's/memorySize:[^\n]+/memorySize: '"$TENCENTSCF_MEMORYSIZE"'/' serverless.yml; fi;
+          if [[ ! -z $TENCENT_TIMEOUT ]]; then sed -i -E 's/timeout:[^\n]+/timeout: '"$TENCENT_TIMEOUT"'/' serverless.yml; fi;
           cat serverless.yml
           echo -e "TENCENT_SECRET_ID=$TENCENT_SECRET_ID\nTENCENT_SECRET_KEY=$TENCENT_SECRET_KEY\nSERVERLESS_PLATFORM_VENDOR=tencent\nGLOBAL_ACCELERATOR_NA=true" > .env
           cat .env
