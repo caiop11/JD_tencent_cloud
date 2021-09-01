@@ -56,7 +56,7 @@ inputs:
           name: joyreward_redPacket
           cronExpression: "0 59 7,15,23 * * * *"
           enable: true
-          argument: jd_joy_reward&jd_redPacket
+          argument: jd_joy_reward
     - timer:  #天天提鹅 #柠檬赚金币 #发财大赢家 #京喜工厂 #东东工厂 #财富岛热气球
         parameters:
           name: dailyegg_zjb_bigwinner_dreamFactory_jdfactory_cfdloop
@@ -69,6 +69,7 @@ inputs:
           cronExpression: "0 20 0,6-23/2 * * * *"
           enable: true
           argument: jd_joy&jd_superMarket&jd_jxmc&jd_z_health_energy&jd_fcdyj
+
     - timer: #宠汪汪偷狗粮 #汪汪乐园 #柠檬推一推 #5G超级魔盒 #宠汪汪赛跑
         parameters:
           name: joysteal_joypark_tyt_mohe_joyrun

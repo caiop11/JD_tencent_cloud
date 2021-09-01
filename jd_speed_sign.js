@@ -127,8 +127,8 @@ async function signInit() {
       "activityId": "8a8fabf3cccb417f8e691b6774938bc2",
       "kernelPlatform": "RN",
       "inviterId": [
-        "4Ea5Rk54jwWdzUlDSMQQPYOn8bJjlhOf",
-        "lYWW84hrUq/vNS+xjDyh5g=="
+        "",
+        ""
       ][Math.floor((Math.random() * 2))]
     }), async (err, resp, data) => {
       try {
@@ -687,11 +687,13 @@ function taskGetUrl(function_id, body) {
 function invite2() {
   let t = +new Date()
   let inviterId = [
-    "/eNHdfn6fP+TFwVda3ipjWwvTFqeKBZaRG38adWABKk=",
-    "R+eeS9UrTadw7yIF7ubkxBOARQK0BNXiQLVF0TyAf4Q=",
-    "Cg7WMrLsk/PPSHaOd9q2ULzDByNly0QecJ4K7QiZhLk=",
-    "Sev6JWjut6GyaEHJIWpSQQ=="
+
+    "",
+    "",
+    "",
+    ""
   ][Math.floor((Math.random() * 4))]
+
   let headers = {
     'Host': 'api.m.jd.com',
     'accept': 'application/json, text/plain, */*',
@@ -718,14 +720,16 @@ function invite2() {
 function invite() {
   let t = +new Date()
   let inviterId = [
-    "/eNHdfn6fP+TFwVda3ipjWwvTFqeKBZaRG38adWABKk=",
-    "R+eeS9UrTadw7yIF7ubkxBOARQK0BNXiQLVF0TyAf4Q=",
-    "Cg7WMrLsk/PPSHaOd9q2ULzDByNly0QecJ4K7QiZhLk=",
-    "4OAzIinjvoFYHDImve1/VA==",
-    "N0xw0OCPJTUt8xzWZPWs3w==",
-    "z///voP4pDo+KI13j5As9g==",
-    "Sev6JWjut6GyaEHJIWpSQQ=="
+
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
   ][Math.floor((Math.random() * 7))]
+
   var headers = {
     'Host': 'api.m.jd.com',
     'accept': 'application/json, text/plain, */*',
