@@ -33,12 +33,12 @@ inputs:
           cronExpression: "1 0 0 * * * *"
           enable: true
           argument: jd_bean_sign&jd_club_lottery&jd_shop&jd_bean_home&jd_try&jd_car&jd_sign_graphics&jd_dpqd
-    - timer: #领券中心签到 #京豆变动通知 #取关京东店铺商品 #京东抽奖机 #京东秒秒币 #领金贴 #开学充电站
+    - timer: #领券中心签到 #京豆变动通知 #取关京东店铺商品 #京东抽奖机 #京东秒秒币 #领金贴
         parameters:
-          name: ccSign_beanchange_unsubscribe_lotteryMachine_ms_jintie_kxcdz
+          name: ccSign_beanchange_unsubscribe_lotteryMachine_ms_jintie
           cronExpression: "0 10 0 * * * *"
           enable: true
-          argument: jd_ccSign&jd_bean_change&jd_unsubscribe&jd_lotteryMachine&jd_ms&jd_jin_tie&jd_kxcdz
+          argument: jd_ccSign&jd_bean_change&jd_unsubscribe&jd_lotteryMachine&jd_ms&jd_jin_tie
     - timer: #东东农场 #东东萌宠 #极速版签到 #极速版红包 #健康社区 #柠檬我是大老板
         parameters:
           name: fruit_pet_speedsign_speedredpocke_health_wsdlb
@@ -70,25 +70,24 @@ inputs:
           enable: true
           argument: jd_joy&jd_superMarket&jd_jxmc&jd_z_health_energy&jd_fcdyj
 
-    - timer: #宠汪汪偷狗粮 #汪汪乐园 #柠檬推一推 #京喜领88元红包 #5G超级魔盒 #宠汪汪赛跑
-
+    - timer: #宠汪汪偷狗粮 #汪汪乐园 #柠檬推一推 #5G超级魔盒 #宠汪汪赛跑
         parameters:
-          name: joysteal_joypark_tyt_jxlhb_mohe_joyrun
+          name: joysteal_joypark_tyt_mohe_joyrun
           cronExpression: "0 35 0,6-23/4 * * * *"
           enable: true
-          argument: jd_joy_steal&jd_joy_park&jd_tyt&jd_jxlhb&jd_mohe&jd_joy_run
-    - timer: #京东排行榜 #闪购盲盒 #汪汪乐园 #签到领现金 #东东小窝 #京东直播 #金榜创造营 #京喜签到 #柠檬众筹许愿池 #特务z
+          argument: jd_joy_steal&jd_joy_park&jd_tyt&jd_mohe&jd_joy_run
+    - timer: #京东排行榜 #闪购盲盒 #汪汪乐园 #签到领现金 #东东小窝 #京东直播 #金榜创造营 #京喜签到 #众筹许愿池 #特务z
         parameters:
-          name: rankingList_beanhome_sgmh_joypark_cash_smallhome_live_goldcreator_jxsign_xyc_jsuperBrand
+          name: rankingList_beanhome_sgmh_joypark_cash_smallhome_live_goldcreator_jxsign_wish_jsuperBrand
           cronExpression: "0 5 0,12 * * * *"
           enable: true
-          argument: jd_rankingList&jd_sgmh&jd_joy_park_task&jd_cash&jd_small_home&jd_live&jd_gold_creator&jx_sign&jd_xyc&jd_superBrand
-    - timer: #金融养猪 #十元街 #京东快递 #京东赚赚 #东东乐园 #柠檬零食街 #早起福利 #领京豆 #女装盲盒 #积分换话费
+          argument: jd_rankingList&jd_sgmh&jd_joy_park_task&jd_cash&jd_small_home&jd_live&jd_gold_creator&jx_sign&jd_wish&jd_superBrand
+    - timer: #金融养猪 #十元街 #京东快递 #京东赚赚 #东东乐园 #柠檬零食街 #早起福利 #领京豆 #积分换话费
         parameters:
-          name: pigPet_syj_kd_jdzz_ddly_lsj_zqfl_ljd_nzmh_dwapp
+          name: pigPet_syj_kd_jdzz_ddly_lsj_zqfl_ljd_dwapp
           cronExpression: "0 20 0,20 * * * *"
           enable: true
-          argument: jd_pigPet&jd_syj&jd_kd&jd_jdzz&jd_ddly&jd_lsj&jd_zqfl&jd_ljd&jd_nzmh&jd_dwapp
+          argument: jd_pigPet&jd_syj&jd_kd&jd_jdzz&jd_ddly&jd_lsj&jd_zqfl&jd_ljd&jd_dwapp
   environment: #  环境变量
     variables: #  环境变量对象
       AAA: BBB # 不要删除，用来格式化对齐追加的变量的
