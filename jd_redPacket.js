@@ -48,13 +48,16 @@ const JD_API_HOST = 'https://api.m.jd.com/api';
     res = await getAuthorShareCode('')
   }
 
-  let res2 = await getAuthorShareCode('')
+  if (res && res.length > 0) {
+    $.authorCode = [getRandomArrayElements(res, 1)[0]];
+  }
+  let res2 = await getAuthorShareCode('')  
 
   if (!res2) {
     await $.wait(1000)
     res2 = await getAuthorShareCode('')
   }
-  $.authorMyShareIds = [...(res || []),...(res2 || [])];
+  $.authorMyShareIds = [...($.authorCode || []),...(res2 || [])];
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
@@ -690,6 +693,16 @@ function TotalBean() {
   })
 }
 
+function getRandomArrayElements(arr, count) {
+  var shuffled = arr.slice(0), i = arr.length, min = i - count, temp, index;
+  while (i-- > min) {
+      index = Math.floor((i + 1) * Math.random());
+      temp = shuffled[index];
+      shuffled[index] = shuffled[i];
+      shuffled[i] = temp;
+  }
+  return shuffled.slice(min);
+}
 function jsonParse(str) {
   if (typeof str == "string") {
     try {
