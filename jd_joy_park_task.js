@@ -33,7 +33,7 @@ if ($.isNode()) {
 } else {
   cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
 }
-$.invitePinTaskList = ['']
+$.invitePinTaskList = []
 $.invitePin = [
   "",
   "",
@@ -168,7 +168,7 @@ message = ""
     }
   }
 
-  $.log("\n======汪汪乐园开始内部互助======\n")
+  $.log("\n======汪汪乐园开始内部互助======\n======有剩余助力次数则帮zero205助力======\n")
   for (let i = 0; i < cookiesArr.length; i++) {
     cookie = cookiesArr[i];
     if (cookie) {
@@ -186,7 +186,8 @@ message = ""
         }
         continue
       }
-      for (const invitePinTaskListKey of $.invitePinTaskList) {
+      $.newinvitePinTaskList = [...($.invitePinTaskList || []), ...($.invitePin || [])]
+      for (const invitePinTaskListKey of $.newinvitePinTaskList) {
         $.log(`【京东账号${$.index}】${$.nickName || $.UserName} 助力 ${invitePinTaskListKey}`)
         let resp = await getJoyBaseInfo(167, 1, invitePinTaskListKey);
         if (resp.success) {
@@ -294,7 +295,7 @@ function apDoTask(taskId, taskType, itemId = '', appid = 'activities_platform') 
 function apTaskDetail(taskId, taskType) {
   //await $.wait(20)
   return new Promise(resolve => {
-    $.post(taskPostClientActionUrl(`functionId=apTaskDetail&body={"taskType":"${taskType}","taskId":${taskId},"channel":4,"linkId":"LsQNxL7iWDlXUs6cFl-AAg"}&appid=activities_platform`, `apTaskDetail`), async (err, resp, data) => {
+    $.post(taskPostClientActionUrl(`functionId=apTaskDetail&body={"taskType":"${taskType}","taskId":${taskId},"itemId":"https://pro.m.jd.com/jdlite/active/oTtXBgN2Toq1KfdLXUKKivNKVgA/index.html","linkId":"LsQNxL7iWDlXUs6cFl-AAg"}&appid=activities_platform`, `apTaskDetail`), async (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
