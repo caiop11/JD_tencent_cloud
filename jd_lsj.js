@@ -87,25 +87,16 @@ if ($.isNode()) {
   await $.wait(1000)
   console.log(`\n开始帮【zero205】助力，感谢！\n`);
   let shareCodes = [
+
     '',
     '',
     ''
   ];
   for (let i = 0; i < cookiesArr.length; i++) {
     cookie = cookiesArr[i];
-    $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
-    if (!useInfo[$.UserName]) continue;
     $.canHelp = true;
-    for (let j = 0; j < shareCodes.length && $.canHelp; j++) {
-      $.oneCodeInfo = shareCodes[j];
-      if ($.UserName === shareCodes[j].usr || $.oneCodeInfo.max) {
-        continue;
-      }
-      console.log(`${$.UserName}去助力【zero205】`)
-      nick = useInfo[$.UserName];
-      await dohelp(shareCodes[j]);
-      await $.wait(3000)
-    }
+      await dohelp(shareCodes);
+      await $.wait(2000)
   }
 })()
   .catch((e) => {
@@ -181,13 +172,7 @@ function getinfo() {
             if (data.success) {
               if (data.data.status === 200) {
                 $.cion = data.data.data.customer.remainChance;
-                console.log(`\n查询成功：京东账号【${$.nickName || $.UserName}】当前剩余金币为：${$.cion}`)
-                // if ($.cion > 750000) {
-                //   $.msg($.name, `【提示】\n京东账号【${$.nickName || $.UserName}】已可兑换牛奶`, `\n兑换入口：京东APP->美食馆->瓜分京豆\n每天10点开始兑换`, { "更多脚本": "https://github.com/zero205/JD_tencent_scf" });
-                //   if ($.isNode()) {
-                //     await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `【京东账号${$.index}】 ${$.nickName}\n已可兑换牛奶\n兑换入口：京东APP->美食馆->瓜分京豆，每天10点开始兑换\n更多脚本->"https://github.com/zero205/JD_tencent_scf"`);
-                //   }
-                // }
+                console.log(`\n查询金币成功：京东账号【${$.nickName || $.UserName}】当前剩余金币为：${$.cion}`)
               }
             } else {
               console.log(`查询失败：${JSON.stringify(data)}\n`);
@@ -232,6 +217,8 @@ function getAwardList() {
                   if ($.isNode()) {
                     await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `【京东账号${$.index}】 ${$.nickName}\n已可兑换${$.item[$.item.length-1].awardName}\n剩余数量：${$.item[$.item.length-1].num}\n兑换入口：京东APP->美食馆->瓜分京豆\n更多脚本->"https://github.com/zero205/JD_tencent_scf"`);
                   }
+                } else if ($.item.length <= 3) {
+                  console.log(`查询奖品成功：暂无牛奶，${$.item[$.item.length-1].awardName}剩余数量：${$.item[$.item.length-1].num}\n`);
                 }
               }
             } else {
@@ -458,7 +445,7 @@ function dotree(goodsNumId) {
         if (reust.errorCode == 200) {
           $.log(`${reust.data.data.remark}\n获得${reust.data.data.sendNum}`)
         } else if (reust.errorCode == 500) {
-          $.log("今日已领取完毕,请明日再来！" + reust.errorMessage)
+          $.log(reust.errorMessage)
           $.finish = true
         }
       } catch (e) {
