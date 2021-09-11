@@ -118,9 +118,9 @@ let args_xh = {
 }
 //上面很重要，遇到问题请把上面注释看一遍再来问
 !(async() => {
-    console.log('X1a0He留：遇到问题请把脚本内的注释看一遍再来问，谢谢')
-    // await $.wait(500)
-    // if(process.env.JD_TRY && process.env.JD_TRY === 'true'){
+    console.log('京东试用只建议懂如何配置的跑,不只是脚本配置,京东试用规则本身也比较复杂.这也是为什么默认不跑. 云函数也是,可能会跑很久.如果你问的问题不是脚本的代码问题,我十分不建议跑')
+    await $.wait(500)
+    if(process.env.JD_TRY && process.env.JD_TRY === 'true'){
         await requireConfig()
         if(!$.cookiesArr[0]){
             $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/', {
@@ -197,9 +197,9 @@ let args_xh = {
         if($.isForbidden === false && $.isLimit === false){
             await $.notify.sendNotify(`${$.name}`, notifyMsg);
         }
-    // } else {
-    //     console.log(`\n您未设置运行【京东试用】脚本，结束运行！\n`)
-    // }
+    } else {
+        console.log(`\n您未设置运行【京东试用】脚本，结束运行！\n`)
+    }
 })().catch((e) => {
     console.error(`❗️ ${$.name} 运行错误！\n${e}`)
 }).finally(() => $.done())
