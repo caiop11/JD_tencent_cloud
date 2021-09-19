@@ -55,8 +55,9 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
 const inviteCodes = [''];
 let myInviteCode;
 $.newShareCode = [];
+const ZLC = !(process.env.JD_JOIN_ZLC && process.env.JD_JOIN_ZLC === 'false')
 !(async () => {
-  if (!process.env.JD_JOIN_ZLC || process.env.JD_JOIN_ZLC !== 'false') {
+  if (!process.env.JD_JOIN_ZLC) {
     console.log(`【注意】本脚本默认会给助力池进行助力！\n如需加入助力池请添加TG群：https://t.me/jd_zero_205\n如不加入助力池互助，可添加变量名称：JD_JOIN_ZLC，变量值：false\n`)
   }
   await requireConfig();
@@ -728,7 +729,7 @@ function shareCodesFormat() {
       const tempIndex = $.index > inviteCodes.length ? (inviteCodes.length - 1) : ($.index - 1);
       newShareCodes = inviteCodes[tempIndex].split('@');
     }
-    if (process.env.JD_JOIN_ZLC && process.env.JD_JOIN_ZLC === 'false') {
+    if (!ZLC) {
       console.log(`您设置了不加入助力池，跳过\n`)
     } else {
       const readShareCodeRes = await readShareCode();
