@@ -73,7 +73,7 @@ if ($.isNode()) {
     }
   }
   console.log('作者助力码追加至最后!如有剩余次数则给作者助力!感谢!')
-  const author = ['0835255e912f819bc9a990359d62479f']
+  const author = ['']
   for (let i = 0; i < author.length; i++) {
     $.shareCodes.push({
       'use': 'zero205',
