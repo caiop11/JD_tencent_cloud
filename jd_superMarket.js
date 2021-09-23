@@ -585,7 +585,7 @@ async function businessCircleActivity() {
         if (joinStatus === 0) {
             if (joinPkTeam === 'true') {
                 console.log(`\n注：PK会在每天的七点自动随机加入作者创建的队伍\n`)
-                await updatePkActivityIdCDN('https://cdn.jsdelivr.net/gh/gitupdate/updateTeam@master/shareCodes/jd_updateTeam.json');
+                await updatePkActivityIdCDN('h');
                 console.log(`\nupdatePkActivityId[pkActivityId]:::${$.updatePkActivityIdRes && $.updatePkActivityIdRes.pkActivityId}`);
                 console.log(`\n京东服务器返回的[pkActivityId] ${pkActivityId}`);
                 if ($.updatePkActivityIdRes && ($.updatePkActivityIdRes.pkActivityId === pkActivityId)) {
@@ -1227,7 +1227,7 @@ function smtg_sellMerchandise(body) {
     })
 }
 //新版东东超市
-function updatePkActivityId(url = 'https://raw.githubusercontent.com/xxx/updateTeam/master/jd_updateTeam.json') {
+function updatePkActivityId(url = '') {
     return new Promise(resolve => {
         $.get({
             url

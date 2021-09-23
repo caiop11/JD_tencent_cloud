@@ -56,7 +56,9 @@ inputs:
           name: joyreward_redPacket_decompression
           cronExpression: "0 59 7,15,23 * * * *"
           enable: true
-          argument: jd_joy_reward&jd_redPacket&jd_decompression
+
+          argument: jd_joy_reward&jd_decompression
+
     - timer:  #柠檬赚金币 #发财大赢家 #京喜工厂 #东东工厂 #财富岛热气球
         parameters:
           name: zjb_bigwinner_dreamFactory_jdfactory_cfdloop
