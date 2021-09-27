@@ -82,6 +82,7 @@ message = ""
         continue
       }
       console.log(`\n\n******开始【京东账号${$.index}】${$.nickName || $.UserName}*********\n`);
+
       // if ($.isNode()) {
       //   if (process.env.HELP_JOYPARK && process.env.HELP_JOYPARK == "false") {
       //   } else {
@@ -99,6 +100,7 @@ message = ""
       //     }
       //   }
       // }
+
       //下地后还有有钱买Joy并且买了Joy
       $.hasJoyCoin = true
       await getJoyBaseInfo(undefined, undefined, undefined, true);
@@ -118,20 +120,22 @@ message = ""
   .finally(() => $.done())
 
 
-function getJoyBaseInfo(taskId = '', inviteType = '', inviterPin = '', printLog = false) {
+async function getJoyBaseInfo(taskId = '', inviteType = '', inviterPin = '', printLog = false) {
   //await $.wait(20)
   return new Promise(resolve => {
-    $.post(taskPostClientActionUrl(`body={"taskId":"${taskId}","inviteType":"${inviteType}","inviterPin":"${inviterPin}","linkId":"LsQNxL7iWDlXUs6cFl-AAg"}&_t=1625480372020&appid=activities_platform`, `joyBaseInfo`), async (err, resp, data) => {
+    $.post(taskPostClientActionUrl(`body={"taskId":"${taskId}","inviteType":"${inviteType}","inviterPin":"${inviterPin}","linkId":"LsQNxL7iWDlXUs6cFl-AAg"}&appid=activities_platform`, `joyBaseInfo`), async (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试`)
+          console.log(`${$.name} getJoyBaseInfo API请求失败，请检查网路重试`)
         } else {
           data = JSON.parse(data);
           if (printLog) {
             $.log(`等级: ${data.data.level}|金币: ${data.data.joyCoin}`);
             if (data.data.level >= 30 && $.isNode()) {
               await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `【京东账号${$.index}】${$.nickName || $.UserName}\n当前等级: ${data.data.level}\n已达到单次最高等级奖励\n请尽快前往活动查看领取\n活动入口：京东极速版APP->汪汪乐园\n更多脚本->"https://github.com/zero205/JD_tencent_scf"`);
+              $.log(`\n开始解锁新场景...\n`);
+              await doJoyRestart()
             }
           }
           $.joyBaseInfo = data.data
@@ -161,6 +165,11 @@ function getJoyList(printLog = false) {
             for (let i = 0; i < data.data.activityJoyList.length; i++) {
               //$.wait(50);
               $.log(`id:${data.data.activityJoyList[i].id}|name: ${data.data.activityJoyList[i].name}|level: ${data.data.activityJoyList[i].level}`);
+              if (data.data.activityJoyList[i].level >= 30 && $.isNode()) {
+                await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `【京东账号${$.index}】${$.nickName || $.UserName}\n当前等级: ${data.data.level}\n已达到单次最高等级奖励\n请尽快前往活动查看领取\n活动入口：京东极速版APP->汪汪乐园\n更多脚本->"https://github.com/zero205/JD_tencent_scf"`);
+                $.log(`\n开始解锁新场景...\n`);
+                await doJoyRestart()
+              }
             }
             $.log("\n在铲土的joy⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️")
             for (let i = 0; i < data.data.workJoyInfoList.length; i++) {
@@ -272,8 +281,8 @@ async function doJoyMergeAll(activityJoyList) {
   let joyBaseInfo = await getJoyBaseInfo()
   let fastBuyLevel = joyBaseInfo.fastBuyLevel
   if (joyMinLevelArr.length >= 2) {
-    $.log(`开始合成 ${minLevel} ${joyMinLevelArr[0].id} <=> ${joyMinLevelArr[1].id} 【限流严重，2秒后合成！如失败会重试】`);
-    await $.wait(2000)
+    $.log(`开始合成 ${minLevel} ${joyMinLevelArr[0].id} <=> ${joyMinLevelArr[1].id} 【限流严重，5秒后合成！如失败会重试】`);
+    await $.wait(5000)
     await doJoyMerge(joyMinLevelArr[0].id, joyMinLevelArr[1].id);
     await getJoyList()
     await doJoyMergeAll($.activityJoyList)
@@ -402,6 +411,50 @@ function doJoyRecovery(joyId) {
         resolve(data);
       }
     })
+  })
+}
+
+function doJoyRestart() {
+  return new Promise(resolve => {
+    $.post(taskPostClientActionUrl(`body={"linkId":"LsQNxL7iWDlXUs6cFl-AAg"}&appid=activities_platform`, `joyRestart`), async (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} API请求失败，请检查网路重试`)
+        } else {
+          data = JSON.parse(data);
+          $.log(`新场景解锁 ${data.success ? `成功！` : `失败！【${data.errMsg}】 code=${data.code}`}`)
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve(data);
+      }
+    })
+  })
+}
+
+function getShareCode() {
+  return new Promise(resolve => {
+      $.get({
+          url: "https://raw.fastgit.org/zero205/updateTeam/main/shareCodes/joypark.json",
+          headers: {
+              "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
+          }
+      }, async (err, resp, data) => {
+          try {
+              if (err) {
+                  console.log(`${JSON.stringify(err)}`);
+                  console.log(`${$.name} API请求失败，请检查网路重试`);
+              } else {
+                $.kgw_invitePin = JSON.parse(data);
+              }
+          } catch (e) {
+              $.logErr(e, resp)
+          } finally {
+              resolve();
+          }
+      })
   })
 }
 
