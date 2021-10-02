@@ -24,12 +24,12 @@ if ($.isNode()) {
         return;
     }
     let res = [];
-    try{res = await getAuthorShareCode('https://raw.githubusercontent.com/lsh26/share_code/main/decompression.json');}catch (e) {}
+    try{res = await getAuthorShareCode('');}catch (e) {}
     if(!res){
-        try{res = await getAuthorShareCode('https://gitee.com/star267/share-code/raw/master/decompression.json');}catch (e) {}
+        try{res = await getAuthorShareCode('');}catch (e) {}
         if(!res){res = [];}
     }
-    res = [...res,...(await getAuthorShareCode('https://raw.githubusercontent.com/zero205/updateTeam/main/shareCodes/decompression.json') || [])]
+    res = [...res,...(await getAuthorShareCode('') || [])]
     if(res.length > 0){
         $.shareUuid = getRandomArrayElements(res,1)[0];
     }
