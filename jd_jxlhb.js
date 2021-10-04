@@ -235,7 +235,7 @@ function openRedPack(strPin, grade) {
   })
 }
 
-function getAuthorShareCode(url = "https://raw.fastgit.org/zero205/updateTeam/main/shareCodes/jxhb.json") {
+function getAuthorShareCode(url = "") {
   return new Promise(resolve => {
     const options = {
       url: `${url}`, "timeout": 10000, headers: {
