@@ -104,33 +104,33 @@ var tools = [];
           await getCode()
           if ($.zero205 && $.zero205.length) {
                console.log(`内部互助已完成，开始帮【zero205】助力，感谢！`)
-               for (let help of $.zero205) {
-                    while (tools.length) {
-                         var tool = tools.pop()
-                         var data = await requestApi('splitRedPacket', tool.cookie, { shareCode: help.shareCode, groupCode: help.redPacketId });
-                         if (data) {
-                              if (tool.id == help.id) {
-                                   continue
-                              }
-                              console.log(`${tool.id + 1}->${help.id + 1} ${data.text}`)
-                              if (tool.helps.indexOf(help.id) != -1) {
-                                   break
-                              }
-                              if (data.text == "我的红包已拆完啦") {
-                                   tools.unshift(tool)
-                                   break
-                              }
-                              if (data.text.indexOf("帮拆出错") != -1) {
-                                   continue
-                              }
-                              if (data.text.indexOf("帮拆次数已达上限") != -1) {
-                                   continue
-                              }
-                              tool.helps.push(help.id)
-                              tools.unshift(tool)
-                         }
-                    }
-               }
+               //for (let help of $.zero205) {
+               //     while (tools.length) {
+               //          var tool = tools.pop()
+               //          var data = await requestApi('splitRedPacket', tool.cookie, { shareCode: help.shareCode, groupCode: help.redPacketId });
+               //          if (data) {
+               //               if (tool.id == help.id) {
+               //                    continue
+               //               }
+               //               console.log(`${tool.id + 1}->${help.id + 1} ${data.text}`)
+               //               if (tool.helps.indexOf(help.id) != -1) {
+               //                    break
+               //               }
+               //               if (data.text == "我的红包已拆完啦") {
+               //                    tools.unshift(tool)
+               //                    break
+               //               }
+               //               if (data.text.indexOf("帮拆出错") != -1) {
+               //                    continue
+               //               }
+               //               if (data.text.indexOf("帮拆次数已达上限") != -1) {
+               //                    continue
+               //               }
+               //               tool.helps.push(help.id)
+               //               tools.unshift(tool)
+               //          }
+               //     }
+             //  }
           }
      }
 })().catch((e) => {
@@ -195,7 +195,7 @@ function randomString(e) {
 function getCode() {
      return new Promise(resolve => {
          $.get({
-             url: "https://raw.fastgit.org/zero205/updateTeam/main/shareCodes/30.json",
+             url: "",
              headers: {
                  "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
              }
